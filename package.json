@@ -1,0 +1,24 @@
+{
+  "name": "babysitterkata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chukjrk/BabysitterKata.git"
+  },
+  "author": "Chukwuebuka Kemdirim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chukjrk/BabysitterKata/issues"
+  },
+  "homepage": "https://github.com/chukjrk/BabysitterKata#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "jest": "^24.9.0"
+  }
+}
