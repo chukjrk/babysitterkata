@@ -1,4 +1,4 @@
-import { fee, timeConvert } from "./App";
+import { fee, timeConvert, roundTime } from "./App";
 
 describe("timeConvert", () => {
   it("should convert start and end times to a number", () => {
@@ -40,10 +40,39 @@ describe("fee", () => {
     var end = "2:10am";
     expect(fee(start, end, family)).toBe("Can only babysit for one family");
   });
+  it("should get paid in full hours (no fractional hours allowed)", () => {
+    var family = "Family A";
+    var start = "5:15pm";
+    var end = "3:10am";
+    expect(Number.isInteger(fee(start, end, family))).toBe(true);
+  });
   it("No mistakes when entering values", () => {
     var family = "Family B";
     var start = "4:15pm";
     var end = "6:10am";
     expect(fee(start, end, family)).toContain("Mistake made with entry");
+  });
+  it("total price should not be greater", () => {
+    var family = "Family A";
+    var start = "6:15pm";
+    var end = "4:00am";
+    if (family == "Family A" || family == "Family C") {
+      expect(fee(start, end, family)).toBeLessThanOrEqual(190);
+    } else if (family == "Family B") {
+      expect(fee(start, end, family)).toBeLessThanorEqual(140);
+    }
+  });
+  it("total price should be greater than 0", () => {
+    var family = "Family B";
+    var start = "5:00pm";
+    var end = "11:00pm";
+    expect(fee(start, end, family)).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe("roundTime", () => {
+  it("starts no earlier than 5:00pm", () => {
+    var timeDiff = 3.55;
+    expect(Number.isInteger(roundTime(timeDiff))).toBe(true);
   });
 });
