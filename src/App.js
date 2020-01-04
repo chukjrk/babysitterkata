@@ -1,4 +1,4 @@
-export const fee = (start, end) => {
+export const fee = (start, end, family) => {
   var checkStartPm = start.search("pm");
   var checkEndPm = end.search("am");
 
@@ -14,6 +14,9 @@ export const fee = (start, end) => {
   } else if (checkEndPm < 0 && endTime < 17) {
     return ["Cannot leave later than 4:00am", "Mistake made with entry"];
   }
+  if (typeof family !== "string" && family.length > 1) {
+    return "Can only babysit for one family";
+  }
 };
 
 export const timeConvert = (start, end) => {
@@ -23,23 +26,27 @@ export const timeConvert = (start, end) => {
   var startInt = parseInt(start);
   var checkStartPm = start.search("pm");
   var checkEndPm = end.search("am");
-  if (checkStartPm > 0 && startInt !== 12) {
+  var twelfthHour = 12;
+
+  if (checkStartPm > 0 && startInt !== twelfthHour) {
     var startFloat = parseFloat(start);
-    var startTime = startFloat + 12;
-  } else if (checkStartPm < 0 && startInt == 12) {
+    var startTime = startFloat + twelfthHour;
+  } else if (checkStartPm < 0 && startInt == twelfthHour) {
     var startFloat = parseFloat(start);
-    var startTime = startFloat - 12;
+    var startTime = startFloat - twelfthHour;
   } else {
     var startTime = parseFloat(start);
   }
-  if (checkEndPm > 0 && endInt == 12) {
+
+  if (checkEndPm > 0 && endInt == twelfthHour) {
     var endFloat = parseFloat(end);
-    var endTime = endFloat - 12;
-  } else if (checkEndPm < 0 && endInt !== 12) {
+    var endTime = endFloat - twelfthHour;
+  } else if (checkEndPm < 0 && endInt !== twelfthHour) {
     var endFloat = parseFloat(end);
-    var endTime = endFloat + 12;
+    var endTime = endFloat + twelfthHour;
   } else {
     var endTime = parseFloat(end);
   }
+
   return { startTime, endTime };
 };
