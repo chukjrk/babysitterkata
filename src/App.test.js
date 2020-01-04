@@ -40,4 +40,10 @@ describe("fee", () => {
     var end = "2:10am";
     expect(fee(start, end, family)).toBe("Can only babysit for one family");
   });
+  it("No mistakes when entering values", () => {
+    var family = "Family B";
+    var start = "4:15pm";
+    var end = "6:10am";
+    expect(fee(start, end, family)).toContain("Mistake made with entry");
+  });
 });
