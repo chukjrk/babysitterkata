@@ -58,14 +58,7 @@ describe("fee", () => {
     var end = "11:00pm";
     expect(fee(start, end, family)).toBeGreaterThanOrEqual(0);
   });
-  // it("total price should be 190", () => {
-  //   var family = "Family A";
-  //   var start = "5:00pm";
-  //   var end = "4:00am";
-  //   if (family == "Family A") {
-  //     expect(fee(start, end, family)).toBe(190);
-  //   }
-  // });
+
   it("total price should be 40", () => {
     var family = "Family A";
     var start = "2:00am";
@@ -74,14 +67,6 @@ describe("fee", () => {
       expect(fee(start, end, family)).toBe(40);
     }
   });
-  // it("total price should be 100", () => {
-  //   var family = "Family A";
-  //   var start = "11:15pm";
-  //   var end = "4:00am";
-  //   if (family == "Family A") {
-  //     expect(fee(start, end, family)).toBe(100);
-  //   }
-  // });
   it("total price should be 60", () => {
     var family = "Family A";
     var start = "6:15pm";
@@ -90,12 +75,28 @@ describe("fee", () => {
       expect(fee(start, end, family)).toBe(60);
     }
   });
+  it("total price should be 100", () => {
+    var family = "Family A";
+    var start = "11:15pm";
+    var end = "4:00am";
+    if (family == "Family A") {
+      expect(fee(start, end, family)).toBe(100);
+    }
+  });
   // it("total price should be 75", () => {
   //   var family = "Family A";
-  //   var start = "6:15pm";
-  //   var end = "11:00pm";
+  //   var start = "6:00pm";
+  //   var end = "11:50pm";
   //   if (family == "Family A") {
-  //     expect(fee(start, end, family)).toBe(75);
+  //     expect(fee(start, end, family)).toBe(95);
+  //   }
+  // });
+  // it("total price should be 190", () => {
+  //   var family = "Family A";
+  //   var start = "5:00pm";
+  //   var end = "4:00am";
+  //   if (family == "Family A") {
+  //     expect(fee(start, end, family)).toBe(190);
   //   }
   // });
 });

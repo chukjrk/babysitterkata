@@ -5,18 +5,20 @@ export const fee = (start, end, family) => {
   var secondPayment = 0;
   var thirdPayment = 0;
   var totalpayment = 0;
+  var earliestStart = 17;
+  var latestEnd = 4;
 
   var { startTime, endTime } = timeConvert(start, end);
 
-  if (checkStartPm > 0 && startTime < 17) {
+  if (checkStartPm > 0 && startTime < earliestStart) {
     return ["Cannot start before 5:00pm", "Mistake made with entry"];
-  } else if (checkStartPm < 0 && startTime > 4) {
+  } else if (checkStartPm < 0 && startTime > latestEnd) {
     return ["Cannot start before 5:00pm", "Mistake made with entry"];
   }
 
-  if (checkEndAm > 0 && endTime > 4) {
+  if (checkEndAm > 0 && endTime > latestEnd) {
     return ["Cannot leave later than 4:00am", "Mistake made with entry"];
-  } else if (checkEndAm < 0 && endTime < 17) {
+  } else if (checkEndAm < 0 && endTime < earliestStart) {
     return ["Cannot leave later than 4:00am", "Mistake made with entry"];
   }
 
@@ -32,16 +34,22 @@ export const fee = (start, end, family) => {
       var timeRateChng = 23;
       var timeChngDiff = 24 - timeRateChng;
 
-      if (checkStartPm > 0 && checkEndAm < 0) {
+      if (endTime <= timeRateChng && endTime > earliestStart) {
         var firstDiff = Math.abs(endTime - startTime);
         var roundedFirst = roundTime(firstDiff);
         var firstPayment = roundedFirst * firstPayRate;
       }
 
-      if (checkStartPm < 0 && checkEndAm > 0) {
-        var secondDiff = Math.abs(endTime - startTime);
+      if (startTime >= timeRateChng) {
+        var secondDiff = Math.abs(startTime - endTime - 24);
         var roundedSecond = roundTime(secondDiff);
         var secondPayment = roundedSecond * secondPayRate;
+      }
+
+      if (startTime < endTime && startTime < earliestStart) {
+        var secondDiff = Math.abs(endTime - startTime);
+        var roundedSecond = roundTime(secondDiff);
+        var firstPayment = roundedSecond * secondPayRate;
       }
 
       var totalpayment = firstPayment + secondPayment;
