@@ -52,13 +52,23 @@ export const fee = (start, end, family) => {
         var firstPayment = roundedSecond * secondPayRate;
       }
 
-      if (startTime < timeRateChng && endTime > timeRateChng) {
-        var firstDiff = Math.abs(timeRateChng - startTime);
-        var roundedFirst = roundTime(firstDiff);
-        var firstPayment = roundedFirst * firstPayRate;
-        var secondDiff = Math.abs(endTime - timeRateChng);
-        var roundedSecond = roundTime(secondDiff);
-        var secondPayment = roundedSecond * secondPayRate;
+      if (startTime < timeRateChng) {
+        if (endTime > timeRateChng) {
+          var firstDiff = Math.abs(timeRateChng - startTime);
+          var roundedFirst = roundTime(firstDiff);
+          var firstPayment = roundedFirst * firstPayRate;
+          var secondDiff = Math.abs(endTime - timeRateChng);
+          var roundedSecond = roundTime(secondDiff);
+          var secondPayment = roundedSecond * secondPayRate;
+        }
+        if (endTime < startTime) {
+          var firstDiff = Math.abs(timeRateChng - startTime);
+          var roundedFirst = roundTime(firstDiff);
+          var firstPayment = roundedFirst * firstPayRate;
+          var secondDiff = Math.abs(timeRateChng - endTime - 24);
+          var roundedSecond = roundTime(secondDiff);
+          var secondPayment = roundedSecond * secondPayRate;
+        }
       }
 
       var totalpayment = firstPayment + secondPayment;
