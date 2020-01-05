@@ -32,7 +32,13 @@ export const fee = (start, end, family) => {
       var timeRateChng = 23;
       var timeChngDiff = 24 - timeRateChng;
 
-      if (checkEndAm > 0 && checkStartPm < 0) {
+      if (checkStartPm > 0 && checkEndAm < 0) {
+        var firstDiff = Math.abs(endTime - startTime);
+        var roundedFirst = roundTime(firstDiff);
+        var firstPayment = roundedFirst * firstPayRate;
+      }
+
+      if (checkStartPm < 0 && checkEndAm > 0) {
         var secondDiff = Math.abs(endTime - startTime);
         var roundedSecond = roundTime(secondDiff);
         var secondPayment = roundedSecond * secondPayRate;
