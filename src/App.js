@@ -32,7 +32,6 @@ export const fee = (start, end, family) => {
       var firstPayRate = 15;
       var secondPayRate = 20;
       var timeRateChng = 23;
-      var timeChngDiff = 24 - timeRateChng;
 
       if (endTime <= timeRateChng && endTime > earliestStart) {
         var firstDiff = Math.abs(endTime - startTime);
@@ -72,6 +71,25 @@ export const fee = (start, end, family) => {
       }
 
       var totalpayment = firstPayment + secondPayment;
+
+      return totalpayment;
+
+    case "Family B":
+      // $12 per hour before 10pm and $8 between 10pm and 12am and $16 the rest of the night
+      var firstPayRate = 12;
+      var secondPayRate = 8;
+      var thirdPayRate = 16;
+      var timeRateChng1 = 22;
+      var timeRateChng2 = 0;
+
+      if (endTime <= timeRateChng1 && endTime > earliestStart) {
+        var firstDiff = Math.abs(endTime - startTime);
+        var roundedFirst = roundTime(firstDiff);
+        var firstPayment = roundedFirst * firstPayRate;
+      }
+
+      var totalpayment = firstPayment + secondPayment + thirdPayment;
+      console.log(totalpayment);
 
       return totalpayment;
 

@@ -58,46 +58,47 @@ describe("fee", () => {
     var end = "11:00pm";
     expect(fee(start, end, family)).toBeGreaterThanOrEqual(0);
   });
-
-  it("total price should be 40", () => {
-    var family = "Family A";
-    var start = "2:00am";
-    var end = "4:00am";
-    if (family == "Family A") {
-      expect(fee(start, end, family)).toBe(40);
-    }
-  });
   it("total price should be 60", () => {
     var family = "Family A";
     var start = "6:15pm";
     var end = "10:00pm";
-    if (family == "Family A") {
-      expect(fee(start, end, family)).toBe(60);
-    }
+    expect(fee(start, end, family)).toBe(60);
+  });
+  it("total price should be 40", () => {
+    var family = "Family A";
+    var start = "2:00am";
+    var end = "4:00am";
+    expect(fee(start, end, family)).toBe(40);
   });
   it("total price should be 100", () => {
     var family = "Family A";
     var start = "11:15pm";
     var end = "4:00am";
-    if (family == "Family A") {
-      expect(fee(start, end, family)).toBe(100);
-    }
+    expect(fee(start, end, family)).toBe(100);
   });
   it("total price should be 75", () => {
     var family = "Family A";
     var start = "6:00pm";
     var end = "11:50pm";
-    if (family == "Family A") {
-      expect(fee(start, end, family)).toBe(95);
-    }
+    expect(fee(start, end, family)).toBe(95);
   });
   it("total price should be 190", () => {
     var family = "Family A";
     var start = "5:00pm";
     var end = "4:00am";
-    if (family == "Family A") {
-      expect(fee(start, end, family)).toBe(190);
-    }
+    expect(fee(start, end, family)).toBe(190);
+  });
+  it("total price should be greater than 0", () => {
+    var family = "Family B";
+    var start = "5:00pm";
+    var end = "11:00pm";
+    expect(fee(start, end, family)).toBeGreaterThanOrEqual(0);
+  });
+  it("total price should be 48", () => {
+    var family = "Family B";
+    var start = "6:15pm";
+    var end = "10:00pm";
+    expect(fee(start, end, family)).toBe(48);
   });
 });
 
