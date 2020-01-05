@@ -83,14 +83,14 @@ describe("fee", () => {
       expect(fee(start, end, family)).toBe(100);
     }
   });
-  // it("total price should be 75", () => {
-  //   var family = "Family A";
-  //   var start = "6:00pm";
-  //   var end = "11:50pm";
-  //   if (family == "Family A") {
-  //     expect(fee(start, end, family)).toBe(95);
-  //   }
-  // });
+  it("total price should be 75", () => {
+    var family = "Family A";
+    var start = "6:00pm";
+    var end = "11:50pm";
+    if (family == "Family A") {
+      expect(fee(start, end, family)).toBe(95);
+    }
+  });
   // it("total price should be 190", () => {
   //   var family = "Family A";
   //   var start = "5:00pm";
