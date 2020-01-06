@@ -1,4 +1,4 @@
-import { timeConvert, roundTime, paymentFamAC } from "./support";
+import { timeConvert, roundTime, paymentFamAC } from "./Support";
 
 export const fee = (start, end, family) => {
   var checkStartPm = start.search("pm");
