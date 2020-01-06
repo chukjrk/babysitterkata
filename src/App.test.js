@@ -112,33 +112,47 @@ describe("roundTime", () => {
 
 describe("paymentFamAC", () => {
   it("total price should be greater than 0", () => {
+    var family1 = "Family A";
+    var family2 = "Family C";
     var startTime = 17.0;
     var endTime = 23.0;
-    expect(paymentFamAC(startTime, endTime)).toBeGreaterThanOrEqual(0);
+    expect(paymentFamAC(startTime, endTime, family1)).toBeGreaterThanOrEqual(0);
+    expect(paymentFamAC(startTime, endTime, family2)).toBeGreaterThanOrEqual(0);
   });
   it("total price should be 60", () => {
+    var family = "Family A";
     var startTime = 18.15;
     var endTime = 22.0;
-    expect(paymentFamAC(startTime, endTime)).toBe(60);
+    expect(paymentFamAC(startTime, endTime, family)).toBe(60);
   });
   it("total price should be 40", () => {
+    var family = "Family A";
     var startTime = 2.0;
     var endTime = 4.0;
-    expect(paymentFamAC(startTime, endTime)).toBe(40);
+    expect(paymentFamAC(startTime, endTime, family)).toBe(40);
   });
   it("total price should be 100", () => {
+    var family = "Family A";
     var startTime = 23.15;
     var endTime = 4.0;
-    expect(paymentFamAC(startTime, endTime)).toBe(100);
+    expect(paymentFamAC(startTime, endTime, family)).toBe(100);
   });
   it("total price should be 75", () => {
+    var family = "Family A";
     var startTime = 18.0;
     var endTime = 23.5;
-    expect(paymentFamAC(startTime, endTime)).toBe(95);
+    expect(paymentFamAC(startTime, endTime, family)).toBe(95);
   });
   it("total price should be 190", () => {
+    var family = "Family A";
     var startTime = 17.0;
     var endTime = 4.0;
-    expect(paymentFamAC(startTime, endTime)).toBe(190);
+    expect(paymentFamAC(startTime, endTime, family)).toBe(190);
+  });
+  it("total price should be 190", () => {
+    var family = "Family C";
+    var startTime = 17.0;
+    var endTime = 4.0;
+    expect(paymentFamAC(startTime, endTime, family)).toBe(189);
   });
 });

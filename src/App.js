@@ -28,9 +28,7 @@ export const fee = (start, end, family) => {
   switch (family) {
     case "Family A":
       // $15 per hour before 11pm and $20 per hour the rest of the night
-
-      var totalpayment = paymentFamAC(startTime, endTime);
-
+      var totalpayment = paymentFamAC(startTime, endTime, family);
       return totalpayment;
 
     case "Family B":
@@ -95,6 +93,11 @@ export const fee = (start, end, family) => {
 
       return totalpayment;
 
+    case "Family C":
+      // $21 per hour before 9pm and $15 rest of the night
+      var totalpayment = paymentFamAC(startTime, endTime, family);
+      return totalpayment;
+
     default:
       return "Mistake made with entry";
   }
@@ -142,14 +145,20 @@ export const roundTime = timeDiff => {
   }
 };
 
-export const paymentFamAC = (startTime, endTime) => {
+export const paymentFamAC = (startTime, endTime, family) => {
   var firstPayment = 0;
   var secondPayment = 0;
   var earliestStart = 17;
 
-  var firstPayRate = 15;
-  var secondPayRate = 20;
-  var timeRateChng = 23;
+  if (family == "Family A") {
+    var firstPayRate = 15;
+    var secondPayRate = 20;
+    var timeRateChng = 23;
+  } else {
+    var firstPayRate = 21;
+    var secondPayRate = 15;
+    var timeRateChng = 21;
+  }
 
   if (endTime <= timeRateChng && endTime > earliestStart) {
     var firstDiff = Math.abs(endTime - startTime);
