@@ -1,4 +1,5 @@
-import { fee, timeConvert, roundTime, paymentFamAC } from "./App";
+import fee from "./App";
+import { timeConvert, roundTime, paymentFamAC } from "./support";
 
 describe("timeConvert", () => {
   it("should convert start and end times to a number", () => {
