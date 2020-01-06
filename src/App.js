@@ -51,10 +51,17 @@ export const fee = (start, end, family) => {
           var secondDiff = Math.abs(startTime - endTime - 24);
           var roundedSecond = roundTime(secondDiff);
           var secondPayment = roundedSecond * secondPayRate;
-        } else {
+        } else if (endTime > startTime) {
           var secondDiff = Math.abs(startTime - endTime);
           var roundedSecond = roundTime(secondDiff);
           var secondPayment = roundedSecond * secondPayRate;
+        } else {
+          var secondDiff = Math.abs(startTime - timeRateChng2 - 24);
+          var roundedSecond = roundTime(secondDiff);
+          var secondPayment = roundedSecond * secondPayRate;
+          var thirdDiff = Math.abs(endTime - timeRateChng2);
+          var roundedThird = roundTime(thirdDiff);
+          var thirdPayment = roundedThird * thirdPayRate;
         }
       }
 
@@ -72,6 +79,15 @@ export const fee = (start, end, family) => {
           var secondDiff = Math.abs(endTime - timeRateChng1);
           var roundedSecond = roundTime(secondDiff);
           var secondPayment = roundedSecond * secondPayRate;
+        }
+        if (endTime < startTime && endTime != timeRateChng2) {
+          var firstDiff = Math.abs(timeRateChng1 - startTime);
+          var roundedFirst = roundTime(firstDiff);
+          var firstPayment = roundedFirst * firstPayRate;
+          var secondPayment = 2 * secondPayRate;
+          var thirdDiff = Math.abs(endTime - timeRateChng2);
+          var roundedThird = roundTime(thirdDiff);
+          var thirdPayment = roundedThird * thirdPayRate;
         }
       }
 
@@ -126,7 +142,7 @@ export const roundTime = timeDiff => {
   }
 };
 
-export function paymentFamAC(startTime, endTime) {
+export const paymentFamAC = (startTime, endTime) => {
   var firstPayment = 0;
   var secondPayment = 0;
   var earliestStart = 17;
@@ -170,4 +186,4 @@ export function paymentFamAC(startTime, endTime) {
   }
   var totalpayment = firstPayment + secondPayment;
   return totalpayment;
-}
+};
