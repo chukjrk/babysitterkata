@@ -77,6 +77,18 @@ describe("fee", () => {
     var end = "12:00am";
     expect(fee(start, end, family)).toBe(16);
   });
+  it("total price should be 16", () => {
+    var family = "Family B";
+    var start = "10:12pm";
+    var end = "11:00pm";
+    expect(fee(start, end, family)).toBe(8);
+  });
+  it("total price should be 68", () => {
+    var family = "Family B";
+    var start = "5:12pm";
+    var end = "11:00pm";
+    expect(fee(start, end, family)).toBe(68);
+  });
 });
 
 describe("roundTime", () => {
