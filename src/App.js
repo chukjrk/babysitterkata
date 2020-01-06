@@ -46,6 +46,17 @@ export const fee = (start, end, family) => {
         var roundedFirst = roundTime(firstDiff);
         var firstPayment = roundedFirst * firstPayRate;
       }
+      if (startTime > timeRateChng1) {
+        if (endTime == 0) {
+          var secondDiff = Math.abs(startTime - endTime - 24);
+          var roundedSecond = roundTime(secondDiff);
+          var secondPayment = roundedSecond * secondPayRate;
+        } else {
+          var secondDiff = Math.abs(startTime - endTime);
+          var roundedSecond = roundTime(secondDiff);
+          var secondPayment = roundedSecond * secondPayRate;
+        }
+      }
       if (startTime < endTime && startTime < earliestStart) {
         var thirdDiff = Math.abs(startTime - endTime);
         var roundedThird = roundTime(thirdDiff);
