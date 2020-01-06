@@ -1,4 +1,4 @@
-import { fee, timeConvert, roundTime } from "./App";
+import { fee, timeConvert, roundTime, paymentFamAC } from "./App";
 
 describe("timeConvert", () => {
   it("should convert start and end times to a number", () => {
@@ -52,42 +52,7 @@ describe("fee", () => {
     var end = "6:10am";
     expect(fee(start, end, family)).toContain("Mistake made with entry");
   });
-  it("total price should be greater than 0", () => {
-    var family = "Family A";
-    var start = "5:00pm";
-    var end = "11:00pm";
-    expect(fee(start, end, family)).toBeGreaterThanOrEqual(0);
-  });
-  it("total price should be 60", () => {
-    var family = "Family A";
-    var start = "6:15pm";
-    var end = "10:00pm";
-    expect(fee(start, end, family)).toBe(60);
-  });
-  it("total price should be 40", () => {
-    var family = "Family A";
-    var start = "2:00am";
-    var end = "4:00am";
-    expect(fee(start, end, family)).toBe(40);
-  });
-  it("total price should be 100", () => {
-    var family = "Family A";
-    var start = "11:15pm";
-    var end = "4:00am";
-    expect(fee(start, end, family)).toBe(100);
-  });
-  it("total price should be 75", () => {
-    var family = "Family A";
-    var start = "6:00pm";
-    var end = "11:50pm";
-    expect(fee(start, end, family)).toBe(95);
-  });
-  it("total price should be 190", () => {
-    var family = "Family A";
-    var start = "5:00pm";
-    var end = "4:00am";
-    expect(fee(start, end, family)).toBe(190);
-  });
+
   it("total price should be greater than 0", () => {
     var family = "Family B";
     var start = "5:00pm";
@@ -100,11 +65,50 @@ describe("fee", () => {
     var end = "10:00pm";
     expect(fee(start, end, family)).toBe(48);
   });
+  it("total price should be 32", () => {
+    var family = "Family B";
+    var start = "2:12am";
+    var end = "4:00am";
+    expect(fee(start, end, family)).toBe(32);
+  });
 });
 
 describe("roundTime", () => {
   it("starts no earlier than 5:00pm", () => {
     var timeDiff = 3.55;
     expect(Number.isInteger(roundTime(timeDiff))).toBe(true);
+  });
+});
+
+describe("paymentFamAC", () => {
+  it("total price should be greater than 0", () => {
+    var startTime = 17.0;
+    var endTime = 23.0;
+    expect(paymentFamAC(startTime, endTime)).toBeGreaterThanOrEqual(0);
+  });
+  it("total price should be 60", () => {
+    var startTime = 18.15;
+    var endTime = 22.0;
+    expect(paymentFamAC(startTime, endTime)).toBe(60);
+  });
+  it("total price should be 40", () => {
+    var startTime = 2.0;
+    var endTime = 4.0;
+    expect(paymentFamAC(startTime, endTime)).toBe(40);
+  });
+  it("total price should be 100", () => {
+    var startTime = 23.15;
+    var endTime = 4.0;
+    expect(paymentFamAC(startTime, endTime)).toBe(100);
+  });
+  it("total price should be 75", () => {
+    var startTime = 18.0;
+    var endTime = 23.5;
+    expect(paymentFamAC(startTime, endTime)).toBe(95);
+  });
+  it("total price should be 190", () => {
+    var startTime = 17.0;
+    var endTime = 4.0;
+    expect(paymentFamAC(startTime, endTime)).toBe(190);
   });
 });

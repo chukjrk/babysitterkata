@@ -4,7 +4,6 @@ export const fee = (start, end, family) => {
   var firstPayment = 0;
   var secondPayment = 0;
   var thirdPayment = 0;
-  var totalpayment = 0;
   var earliestStart = 17;
   var latestEnd = 4;
 
@@ -29,48 +28,8 @@ export const fee = (start, end, family) => {
   switch (family) {
     case "Family A":
       // $15 per hour before 11pm and $20 per hour the rest of the night
-      var firstPayRate = 15;
-      var secondPayRate = 20;
-      var timeRateChng = 23;
 
-      if (endTime <= timeRateChng && endTime > earliestStart) {
-        var firstDiff = Math.abs(endTime - startTime);
-        var roundedFirst = roundTime(firstDiff);
-        var firstPayment = roundedFirst * firstPayRate;
-      }
-
-      if (startTime >= timeRateChng) {
-        var secondDiff = Math.abs(startTime - endTime - 24);
-        var roundedSecond = roundTime(secondDiff);
-        var secondPayment = roundedSecond * secondPayRate;
-      }
-
-      if (startTime < endTime && startTime < earliestStart) {
-        var secondDiff = Math.abs(endTime - startTime);
-        var roundedSecond = roundTime(secondDiff);
-        var firstPayment = roundedSecond * secondPayRate;
-      }
-
-      if (startTime < timeRateChng) {
-        if (endTime > timeRateChng) {
-          var firstDiff = Math.abs(timeRateChng - startTime);
-          var roundedFirst = roundTime(firstDiff);
-          var firstPayment = roundedFirst * firstPayRate;
-          var secondDiff = Math.abs(endTime - timeRateChng);
-          var roundedSecond = roundTime(secondDiff);
-          var secondPayment = roundedSecond * secondPayRate;
-        }
-        if (endTime < startTime) {
-          var firstDiff = Math.abs(timeRateChng - startTime);
-          var roundedFirst = roundTime(firstDiff);
-          var firstPayment = roundedFirst * firstPayRate;
-          var secondDiff = Math.abs(timeRateChng - endTime - 24);
-          var roundedSecond = roundTime(secondDiff);
-          var secondPayment = roundedSecond * secondPayRate;
-        }
-      }
-
-      var totalpayment = firstPayment + secondPayment;
+      var totalpayment = paymentFamAC(startTime, endTime);
 
       return totalpayment;
 
@@ -87,9 +46,13 @@ export const fee = (start, end, family) => {
         var roundedFirst = roundTime(firstDiff);
         var firstPayment = roundedFirst * firstPayRate;
       }
+      if (startTime < endTime && startTime < earliestStart) {
+        var thirdDiff = Math.abs(startTime - endTime);
+        var roundedThird = roundTime(thirdDiff);
+        var thirdPayment = roundedThird * thirdPayRate;
+      }
 
       var totalpayment = firstPayment + secondPayment + thirdPayment;
-      console.log(totalpayment);
 
       return totalpayment;
 
@@ -139,3 +102,49 @@ export const roundTime = timeDiff => {
     return roundedTime;
   }
 };
+
+export function paymentFamAC(startTime, endTime) {
+  var firstPayment = 0;
+  var secondPayment = 0;
+  var earliestStart = 17;
+
+  var firstPayRate = 15;
+  var secondPayRate = 20;
+  var timeRateChng = 23;
+
+  if (endTime <= timeRateChng && endTime > earliestStart) {
+    var firstDiff = Math.abs(endTime - startTime);
+    var roundedFirst = roundTime(firstDiff);
+    var firstPayment = roundedFirst * firstPayRate;
+  }
+  if (startTime >= timeRateChng) {
+    var secondDiff = Math.abs(startTime - endTime - 24);
+    var roundedSecond = roundTime(secondDiff);
+    var secondPayment = roundedSecond * secondPayRate;
+  }
+  if (startTime < endTime && startTime < earliestStart) {
+    var secondDiff = Math.abs(endTime - startTime);
+    var roundedSecond = roundTime(secondDiff);
+    var firstPayment = roundedSecond * secondPayRate;
+  }
+  if (startTime < timeRateChng) {
+    if (endTime > timeRateChng) {
+      var firstDiff = Math.abs(timeRateChng - startTime);
+      var roundedFirst = roundTime(firstDiff);
+      var firstPayment = roundedFirst * firstPayRate;
+      var secondDiff = Math.abs(endTime - timeRateChng);
+      var roundedSecond = roundTime(secondDiff);
+      var secondPayment = roundedSecond * secondPayRate;
+    }
+    if (endTime < startTime) {
+      var firstDiff = Math.abs(timeRateChng - startTime);
+      var roundedFirst = roundTime(firstDiff);
+      var firstPayment = roundedFirst * firstPayRate;
+      var secondDiff = Math.abs(timeRateChng - endTime - 24);
+      var roundedSecond = roundTime(secondDiff);
+      var secondPayment = roundedSecond * secondPayRate;
+    }
+  }
+  var totalpayment = firstPayment + secondPayment;
+  return totalpayment;
+}
