@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------------
+// timeConvert function to convert time entered in string to a number on
+// on the 24 hour clock
+// ---------------------------------------------------------------------
 export const timeConvert = (start, end) => {
   start = start.replace(":", ".");
   end = end.replace(":", ".");
@@ -5,7 +9,8 @@ export const timeConvert = (start, end) => {
   var startInt = parseInt(start);
   var checkStartPm = start.search("pm");
   var checkEndAm = end.search("am");
-  var twelfthHour = 12;
+  var twelfthHour = 12; // 12am when the 24 hour starts
+
   if (checkStartPm > 0 && startInt !== twelfthHour) {
     var startFloat = parseFloat(start);
     var startTime = startFloat + twelfthHour;
@@ -27,6 +32,9 @@ export const timeConvert = (start, end) => {
   return { startTime, endTime };
 };
 
+// ---------------------------------------------------------------------
+// roundTime function to round the time to the nearest hour
+// ---------------------------------------------------------------------
 export const roundTime = timeDiff => {
   if (timeDiff % 1 < 0.3) {
     var roundedTime = Math.floor(timeDiff);
@@ -37,6 +45,10 @@ export const roundTime = timeDiff => {
   }
 };
 
+// ---------------------------------------------------------------------
+// paymentFamAC function to calculate the payment for Families A and C
+// due of their similarities
+// ---------------------------------------------------------------------
 export const paymentFamAC = (startTime, endTime, family) => {
   var firstPayment = 0;
   var secondPayment = 0;

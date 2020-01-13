@@ -1,5 +1,9 @@
 import { timeConvert, roundTime, paymentFamAC } from "./Support";
 
+// ---------------------------------------------------------------------
+// fee function to calculate the amount made by a babysitter depending on
+// the hours they worked and what family they worked for
+// ---------------------------------------------------------------------
 export const fee = (start, end, family) => {
   var checkStartPm = start.search("pm");
   var checkEndAm = end.search("am");
