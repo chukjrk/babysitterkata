@@ -10,7 +10,7 @@ This kata simulates a babysitter working and getting paid for one night. It calc
 2. Run npm install `npm install`
 3. To run the tests`npm test`
 4. To build the solution
-   `npm build`
+   `npm run build`
    then
    `node lib/App.js`
    to run the solution
